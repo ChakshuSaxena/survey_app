@@ -9,3 +9,7 @@ default: &default
 development:
   <<: *default
   database: survey_application_development
+
+test:
+  <<: *default
+  database: survey_app_test
