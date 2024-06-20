@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="form-container">
+    <h1 class="survey-title"> <%= @survey.title %></h1>
+
+    <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+
+    <%= form_with(url: surveys_path, method: :post) do %>
+      <% @survey.questions.each_with_index do |question, index| %>
+        <div class="question">
+          <p class="question-number">Ques <%= index + 1 %></p>
+          <p><%= question.title %></p>
+          <% question.answers.each do |answer| %>
+            <label>
+              <%= radio_button_tag "responses[#{question.id}]", answer.id, false %>
+              <%= answer.title %>
+            </label>
+          <% end %>
+        </div>
+      <% end %>
+      <%= hidden_field_tag :survey_id, @survey.id %>
+      <%= submit_tag 'Submit', class: 'submit-btn' %>
+    <% end %>
+  </div>
+</div>
